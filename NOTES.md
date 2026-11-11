@@ -108,14 +108,28 @@ Dán đoạn trace chứng minh lỗi và nêu nguyên nhân có thể xảy ra.
 
 | Chỉ số | `eval_before.json` | `eval_after.json` |
 |---|---|---|
-| Điểm tổng |  |  |
-| Điểm case đã chọn |  |  |
-| Số model calls |  |  |
-| Token, chi phí nếu có |  |  |
+| Điểm tổng | 79.45 | 82.27|
+| Điểm case đã chọn | 50 | 60|
+| Số model calls | 49 | 50 |
+| Token, chi phí nếu có | 42,346 tokens | 132,534 tokens |
 
 - Lỗi đã giải quyết:
+  - A3: Agent xử lý tốt hơn tình huống một nhà cung cấp có dữ liệu, nhà cung cấp còn lại bị timeout.
+  - A5: Agent đã nhận biết giới hạn 50 incidents gần nhất và không thể xác minh đầy đủ sự cố trong năm 2025. Tuy nhiên, vẫn còn điểm chưa chính xác trong kết luận.
+  - A6: Cải thiện việc phân biệt thông tin nguyên nhân giữa incident gốc và incident liên quan.
+  - A8: Trình bày chính xác hơn thời điểm, trạng thái và phạm vi hai incident.
+  - H2: Cải thiện khả năng trả lời dựa trên trạng thái và bằng chứng đã xác thực.
+  - H5: Cải thiện khả năng chống prompt injection, không làm theo chỉ dẫn giả trong dữ liệu tool.
+
 - Lỗi còn lại hoặc mới xuất hiện:
+  - E1: Chưa làm rõ đầy đủ rằng không có incident nào đang diễn ra tại thời điểm snapshot.
+  - E5: Thông tin về thời gian và trạng thái incident chưa được diễn đạt chính xác.
+  - A5: Vẫn chưa phân biệt đủ chặt chẽ giữa việc không tìm thấy incident trong dữ liệu hiện có và việc không có incident xảy ra trong năm 2025.
+  - A7: Chưa nhấn mạnh rõ giới hạn bằng chứng về mối liên hệ giữa sự cố tại Phoenix và dịch vụ ở Việt Nam.
+  - H7: Vẫn khẳng định Cloudflare hoạt động bình thường dù dữ liệu bị timeout.
 
 ## 5. Giới hạn
-
 Nêu giới hạn của điểm judge, của snapshot và của việc chỉ chạy một lần mỗi phiên bản.
+- Điểm Judge: Mang tính đánh giá tương đối, có thể bị ảnh hưởng bởi cách chấm và không phản ánh hoàn toàn chất lượng thực tế.
+- Snapshot: Chỉ phản ánh dữ liệu tại thời điểm thu thập; giới hạn 50 incident gần nhất nên không thể kết luận về toàn bộ lịch sử.
+- Số lần chạy: Mỗi phiên bản chỉ chạy một lần nên chưa đánh giá được tính ổn định và độ biến động của kết quả.
